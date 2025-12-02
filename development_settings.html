@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer API - SmsBlast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Syntax Highlighting Simulation */
+        .token-key { color: #f87171; } /* red-400 */
+        .token-string { color: #a5b4fc; } /* indigo-300 */
+        .token-number { color: #fbbf24; } /* amber-400 */
+        .token-bool { color: #34d399; } /* emerald-400 */
+        
+        /* Tab Active States */
+        .tab-btn.active {
+            color: #2563eb; /* blue-600 */
+            border-bottom-color: #2563eb;
+        }
+        .tab-btn {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <div class="flex h-screen overflow-hidden">
+
+        <!-- Sidebar -->
+        <aside class="w-64 bg-slate-900 text-white flex flex-col shadow-2xl z-20 hidden md:flex transition-all duration-300">
+            <div class="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-900">
+                <div class="flex items-center gap-2 text-blue-500">
+                    <i class="fas fa-paper-plane text-2xl"></i>
+                    <span class="text-xl font-bold tracking-wide text-white">Sms<span class="text-blue-500">Blast</span></span>
+                </div>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto py-6 scrollbar-hide">
+                <nav class="space-y-1 px-3">
+                    <a href="./index.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-tachometer-alt w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Dashboard</span>
+                    </a>
+                    
+                    <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Send SMS</p>
+                    <a href="./single_sms_send.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-paper-plane w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Single SMS Send</span>
+                    </a>
+                    <a href="./bulk_sms_send.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-mail-bulk w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Bulk SMS Send</span>
+                    </a>
+
+                    <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Reports & Finance</p>
+                    <a href="./sms_logs.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-list-alt w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">SMS Logs</span>
+                    </a>
+                    <a href="./transactions.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-exchange-alt w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Transactions</span>
+                    </a>
+                    <a href="./sms_balance.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-wallet w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">SMS Balance</span>
+                    </a>
+                    <a href="./funds.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-money-bill-wave w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Funds</span>
+                    </a>
+
+                    <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Management</p>
+                    <a href="./sender_info.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-id-card w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Sender Info</span>
+                    </a>
+                    <a href="./users.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-users w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Users</span>
+                    </a>
+                    <a href="./development_settings.html" class="flex items-center px-4 py-3 bg-blue-600 text-white rounded-lg group shadow-lg shadow-blue-900/20">
+                        <i class="fas fa-code w-6 text-center"></i>
+                        <span class="ml-3 font-medium">Development Settings</span>
+                    </a>
+                </nav>
+            </div>
+             <!-- User Profile -->
+            <div class="p-4 border-t border-slate-800 bg-slate-900">
+                <button class="flex items-center gap-3 w-full hover:bg-slate-800 p-2 rounded-lg transition-colors">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=3B82F6&color=fff" class="h-9 w-9 rounded-full border-2 border-slate-700">
+                    <div class="text-left">
+                        <p class="text-sm font-medium text-white">Admin User</p>
+                        <p class="text-xs text-slate-400">View Profile</p>
+                    </div>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col h-screen overflow-hidden bg-gray-50">
+            
+            <!-- Header -->
+            <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 z-10 shadow-sm">
+                <nav class="flex" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                        <li class="inline-flex items-center"><a href="#" class="text-gray-500 hover:text-gray-900 font-medium text-sm">Management</a></li>
+                        <li>
+                            <div class="flex items-center">
+                                <i class="fas fa-chevron-right text-gray-400 text-xs mx-2"></i>
+                                <span class="text-gray-800 font-medium text-sm">Developer API</span>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+                <div class="flex items-center gap-4">
+                     <div class="flex items-center gap-2 px-3 py-1.5 bg-blue-50 rounded-full border border-blue-100">
+                        <i class="fas fa-wallet text-green-600 text-sm"></i>
+                        <span class="text-sm font-semibold text-blue-900">5,450 Tk</span>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600"><i class="fas fa-bell text-xl"></i></button>
+                </div>
+            </header>
+
+            <!-- Scrollable Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto p-6 md:p-8">
+                
+                <div class="max-w-6xl mx-auto space-y-8">
+                    
+                    <!-- Title & Intro -->
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">Developer API & Integration</h1>
+                        <p class="text-sm text-gray-500">Integrate SMS capabilities directly into your software or website.</p>
+                    </div>
+
+                    <!-- API Credentials -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                                <i class="fas fa-key text-blue-500"></i> API Credentials
+                            </h3>
+                            <button class="text-sm text-red-600 hover:text-red-800 font-medium bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition">
+                                <i class="fas fa-sync-alt mr-1"></i> Regenerate Key
+                            </button>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">API Key</label>
+                                <div class="flex">
+                                    <input type="text" value="98723489-ab12-4c3d-8e5f-1a2b3c4d5e6f" class="flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 font-mono" readonly>
+                                    <button class="bg-gray-100 border border-l-0 border-gray-300 text-gray-600 hover:bg-gray-200 rounded-r-lg px-4 transition">
+                                        <i class="far fa-copy"></i>
+                                    </button>
+                                </div>
+                                <p class="mt-1 text-xs text-gray-400">Keep this key secret. It grants full access to your account.</p>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">IP Whitelist (Optional)</label>
+                                <div class="flex">
+                                    <input type="text" placeholder="e.g. 192.168.1.1, 203.0.113.5" class="flex-1 bg-white border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                                    <button class="bg-blue-600 border border-blue-600 text-white hover:bg-blue-700 rounded-r-lg px-4 transition font-medium text-sm">
+                                        Save
+                                    </button>
+                                </div>
+                                <p class="mt-1 text-xs text-gray-400">Restrict API access to specific IP addresses for security.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Documentation & Examples -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        
+                        <!-- Left: Endpoints & Params -->
+                        <div class="lg:col-span-2 space-y-6">
+                            
+                            <!-- API Navigation Tabs -->
+                            <div class="border-b border-gray-200">
+                                <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
+                                    <li class="mr-2">
+                                        <div onclick="switchApiTab('send')" id="tab-send" class="tab-btn active inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg">
+                                            Send SMS
+                                        </div>
+                                    </li>
+                                    <li class="mr-2">
+                                        <div onclick="switchApiTab('balance')" id="tab-balance" class="tab-btn inline-block p-4 text-gray-500 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300">
+                                            Check Balance
+                                        </div>
+                                    </li>
+                                    <li class="mr-2">
+                                        <div onclick="switchApiTab('dlr')" id="tab-dlr" class="tab-btn inline-block p-4 text-gray-500 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300">
+                                            Delivery Report
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- 1. Send SMS Content -->
+                            <div id="content-send" class="api-content">
+                                <div class="bg-white rounded-b-xl shadow-sm border border-t-0 border-gray-200 p-6">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold font-mono">POST</span>
+                                        <code class="text-sm bg-gray-100 px-2 py-1 rounded text-gray-700">/api/v3/sms/send</code>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mb-6">Send single or bulk messages to valid mobile numbers. Supports text and unicode.</p>
+
+                                    <h4 class="text-sm font-bold text-gray-800 mb-3">Parameters</h4>
+                                    <div class="overflow-x-auto mb-6">
+                                        <table class="w-full text-sm text-left text-gray-500 border rounded-lg">
+                                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                                <tr>
+                                                    <th class="px-4 py-2 border-b">Field</th>
+                                                    <th class="px-4 py-2 border-b">Type</th>
+                                                    <th class="px-4 py-2 border-b">Required</th>
+                                                    <th class="px-4 py-2 border-b">Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-gray-100">
+                                                <tr>
+                                                    <td class="px-4 py-2 font-mono text-blue-600">api_key</td>
+                                                    <td class="px-4 py-2">String</td>
+                                                    <td class="px-4 py-2 text-red-500">Yes</td>
+                                                    <td class="px-4 py-2">Your unique API Key</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="px-4 py-2 font-mono text-blue-600">sender_id</td>
+                                                    <td class="px-4 py-2">String</td>
+                                                    <td class="px-4 py-2 text-red-500">Yes</td>
+                                                    <td class="px-4 py-2">Approved Brand Name or ID</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="px-4 py-2 font-mono text-blue-600">message</td>
+                                                    <td class="px-4 py-2">String</td>
+                                                    <td class="px-4 py-2 text-red-500">Yes</td>
+                                                    <td class="px-4 py-2">Content of the SMS</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="px-4 py-2 font-mono text-blue-600">mobile</td>
+                                                    <td class="px-4 py-2">String</td>
+                                                    <td class="px-4 py-2 text-red-500">Yes</td>
+                                                    <td class="px-4 py-2">Number (e.g. 88017...)</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <!-- Send Code Snippet -->
+                                <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden text-white mt-6">
+                                    <div class="flex items-center justify-between px-4 py-2 bg-slate-900 border-b border-slate-700">
+                                        <div class="flex gap-4 text-xs font-medium">
+                                            <button class="text-blue-400 border-b-2 border-blue-400 pb-2 -mb-2.5">PHP</button>
+                                        </div>
+                                        <button class="text-gray-400 hover:text-white"><i class="far fa-copy"></i></button>
+                                    </div>
+                                    <div class="p-4 overflow-x-auto">
+<pre class="text-xs leading-relaxed">
+<span class="text-purple-400">&lt;?php</span>
+<span class="text-blue-300">$url</span> = <span class="token-string">"https://api.smsblast.com/api/v3/sms/send"</span>;
+<span class="text-blue-300">$data</span> = [
+    <span class="token-string">"api_key"</span> => <span class="token-string">"YOUR_API_KEY"</span>,
+    <span class="token-string">"sender_id"</span> => <span class="token-string">"SmsBlast"</span>,
+    <span class="token-string">"message"</span> => <span class="token-string">"Hello World!"</span>,
+    <span class="token-string">"mobile"</span> => <span class="token-string">"8801712345678"</span>
+];
+<span class="text-blue-300">$ch</span> = curl_init(<span class="text-blue-300">$url</span>);
+curl_setopt(<span class="text-blue-300">$ch</span>, CURLOPT_POST, <span class="token-number">1</span>);
+curl_setopt(<span class="text-blue-300">$ch</span>, CURLOPT_POSTFIELDS, json_encode(<span class="text-blue-300">$data</span>));
+curl_setopt(<span class="text-blue-300">$ch</span>, CURLOPT_HTTPHEADER, [<span class="token-string">'Content-Type: application/json'</span>]);
+curl_setopt(<span class="text-blue-300">$ch</span>, CURLOPT_RETURNTRANSFER, <span class="token-bool">true</span>);
+<span class="text-blue-300">$response</span> = curl_exec(<span class="text-blue-300">$ch</span>);
+curl_close(<span class="text-blue-300">$ch</span>);
+<span class="text-yellow-300">echo</span> <span class="text-blue-300">$response</span>;
+<span class="text-purple-400">?></span>
+</pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 2. Balance Content -->
+                            <div id="content-balance" class="api-content hidden">
+                                <div class="bg-white rounded-b-xl shadow-sm border border-t-0 border-gray-200 p-6">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-bold font-mono">GET</span>
+                                        <code class="text-sm bg-gray-100 px-2 py-1 rounded text-gray-700">/api/v3/balance</code>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mb-6">Retrieve your current account balance and currency.</p>
+
+                                    <h4 class="text-sm font-bold text-gray-800 mb-3">Parameters</h4>
+                                    <div class="overflow-x-auto mb-6">
+                                        <table class="w-full text-sm text-left text-gray-500 border rounded-lg">
+                                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                                <tr>
+                                                    <th class="px-4 py-2 border-b">Field</th>
+                                                    <th class="px-4 py-2 border-b">Type</th>
+                                                    <th class="px-4 py-2 border-b">Required</th>
+                                                    <th class="px-4 py-2 border-b">Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-gray-100">
+                                                <tr>
+                                                    <td class="px-4 py-2 font-mono text-blue-600">api_key</td>
+                                                    <td class="px-4 py-2">String</td>
+                                                    <td class="px-4 py-2 text-red-500">Yes</td>
+                                                    <td class="px-4 py-2">Your unique API Key</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <!-- Balance Code Snippet -->
+                                <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden text-white mt-6">
+                                    <div class="flex items-center justify-between px-4 py-2 bg-slate-900 border-b border-slate-700">
+                                        <div class="flex gap-4 text-xs font-medium">
+                                            <button class="text-blue-400 border-b-2 border-blue-400 pb-2 -mb-2.5">PHP</button>
+                                        </div>
+                                        <button class="text-gray-400 hover:text-white"><i class="far fa-copy"></i></button>
+                                    </div>
+                                    <div class="p-4 overflow-x-auto">
+<pre class="text-xs leading-relaxed">
+<span class="text-purple-400">&lt;?php</span>
+<span class="text-blue-300">$api_key</span> = <span class="token-string">"YOUR_API_KEY"</span>;
+<span class="text-blue-300">$url</span> = <span class="token-string">"https://api.smsblast.com/api/v3/balance?api_key="</span> . <span class="text-blue-300">$api_key</span>;
+
+<span class="text-blue-300">$response</span> = file_get_contents(<span class="text-blue-300">$url</span>);
+<span class="text-yellow-300">echo</span> <span class="text-blue-300">$response</span>;
+<span class="text-purple-400">?></span>
+</pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3. DLR Content -->
+                            <div id="content-dlr" class="api-content hidden">
+                                <div class="bg-white rounded-b-xl shadow-sm border border-t-0 border-gray-200 p-6">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-bold font-mono">GET</span>
+                                        <code class="text-sm bg-gray-100 px-2 py-1 rounded text-gray-700">/api/v3/sms/status</code>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mb-6">Check the delivery status of a specific message ID.</p>
+
+                                    <h4 class="text-sm font-bold text-gray-800 mb-3">Parameters</h4>
+                                    <div class="overflow-x-auto mb-6">
+                                        <table class="w-full text-sm text-left text-gray-500 border rounded-lg">
+                                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                                <tr>
+                                                    <th class="px-4 py-2 border-b">Field</th>
+                                                    <th class="px-4 py-2 border-b">Type</th>
+                                                    <th class="px-4 py-2 border-b">Required</th>
+                                                    <th class="px-4 py-2 border-b">Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-gray-100">
+                                                <tr>
+                                                    <td class="px-4 py-2 font-mono text-blue-600">api_key</td>
+                                                    <td class="px-4 py-2">String</td>
+                                                    <td class="px-4 py-2 text-red-500">Yes</td>
+                                                    <td class="px-4 py-2">Your unique API Key</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="px-4 py-2 font-mono text-blue-600">message_id</td>
+                                                    <td class="px-4 py-2">String</td>
+                                                    <td class="px-4 py-2 text-red-500">Yes</td>
+                                                    <td class="px-4 py-2">The ID received when sending</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <!-- DLR Code Snippet -->
+                                <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden text-white mt-6">
+                                    <div class="flex items-center justify-between px-4 py-2 bg-slate-900 border-b border-slate-700">
+                                        <div class="flex gap-4 text-xs font-medium">
+                                            <button class="text-blue-400 border-b-2 border-blue-400 pb-2 -mb-2.5">PHP</button>
+                                        </div>
+                                        <button class="text-gray-400 hover:text-white"><i class="far fa-copy"></i></button>
+                                    </div>
+                                    <div class="p-4 overflow-x-auto">
+<pre class="text-xs leading-relaxed">
+<span class="text-purple-400">&lt;?php</span>
+<span class="text-blue-300">$api_key</span> = <span class="token-string">"YOUR_API_KEY"</span>;
+<span class="text-blue-300">$msg_id</span> = <span class="token-string">"MSG-102938"</span>;
+<span class="text-blue-300">$url</span> = <span class="token-string">"https://api.smsblast.com/api/v3/sms/status?api_key=$api_key&message_id=$msg_id"</span>;
+
+<span class="text-blue-300">$response</span> = file_get_contents(<span class="text-blue-300">$url</span>);
+<span class="text-yellow-300">echo</span> <span class="text-blue-300">$response</span>;
+<span class="text-purple-400">?></span>
+</pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Right: Settings & Response -->
+                        <div class="lg:col-span-1 space-y-6">
+                            
+                            <!-- Response Preview -->
+                            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                                <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-4">Sample JSON Response</h3>
+                                <div class="bg-gray-50 rounded-lg p-3 border border-gray-200">
+<pre class="text-xs text-gray-700">
+{
+  <span class="text-blue-600">"status"</span>: <span class="text-green-600">"success"</span>,
+  <span class="text-blue-600">"code"</span>: <span class="text-orange-600">200</span>,
+  <span class="text-blue-600">"data"</span>: {
+    <span class="text-blue-600">"message_id"</span>: <span class="text-green-600">"MSG-102938"</span>,
+    <span class="text-blue-600">"cost"</span>: <span class="text-orange-600">0.25</span>,
+    <span class="text-blue-600">"balance"</span>: <span class="text-orange-600">5449.75</span>
+  }
+}
+</pre>
+                                </div>
+                            </div>
+
+                            <!-- Webhook Settings -->
+                            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                                <div class="flex items-center gap-2 mb-4">
+                                    <div class="bg-purple-100 p-2 rounded-lg text-purple-600">
+                                        <i class="fas fa-satellite-dish"></i>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-gray-900">Webhook / DLR</h3>
+                                </div>
+                                <p class="text-sm text-gray-500 mb-4">Receive real-time delivery reports to your server.</p>
+                                
+                                <form action="#" onsubmit="event.preventDefault();">
+                                    <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Callback URL</label>
+                                    <input type="url" placeholder="https://yourdomain.com/sms/callback" class="block w-full rounded-lg border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2.5 border mb-3">
+                                    
+                                    <div class="flex items-center mb-4">
+                                        <input id="webhook-active" type="checkbox" checked class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                        <label for="webhook-active" class="ml-2 text-sm text-gray-900">Enable Webhook</label>
+                                    </div>
+
+                                    <button class="w-full bg-gray-900 hover:bg-gray-800 text-white font-medium py-2 rounded-lg transition text-sm">Save Configuration</button>
+                                </form>
+                            </div>
+
+                            <!-- Downloads -->
+                            <div class="bg-blue-50 rounded-xl border border-blue-100 p-6">
+                                <h3 class="text-sm font-bold text-blue-900 mb-3">SDK Downloads</h3>
+                                <div class="space-y-2">
+                                    <a href="#" class="flex items-center text-sm text-blue-700 hover:text-blue-900 hover:underline">
+                                        <i class="fab fa-php w-6"></i> PHP Library (v1.2)
+                                    </a>
+                                    <a href="#" class="flex items-center text-sm text-blue-700 hover:text-blue-900 hover:underline">
+                                        <i class="fab fa-python w-6"></i> Python SDK
+                                    </a>
+                                    <a href="#" class="flex items-center text-sm text-blue-700 hover:text-blue-900 hover:underline">
+                                        <i class="fas fa-file-pdf w-6"></i> Full API Docs (PDF)
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        function switchApiTab(tabName) {
+            // Define all tab IDs
+            const tabs = ['send', 'balance', 'dlr'];
+            
+            tabs.forEach(t => {
+                const btn = document.getElementById('tab-' + t);
+                const content = document.getElementById('content-' + t);
+                
+                if (t === tabName) {
+                    // Activate this tab
+                    btn.classList.add('text-blue-600', 'border-b-2', 'border-blue-600', 'active');
+                    btn.classList.remove('text-gray-500', 'border-transparent', 'hover:text-gray-600', 'hover:border-gray-300');
+                    content.classList.remove('hidden');
+                } else {
+                    // Deactivate other tabs
+                    btn.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600', 'active');
+                    btn.classList.add('text-gray-500', 'border-transparent', 'hover:text-gray-600', 'hover:border-gray-300');
+                    content.classList.add('hidden');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
