@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Funds - SmsBlast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .payment-card-selected {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+            ring: 2px solid #2563eb;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <div class="flex h-screen overflow-hidden">
+
+        <!-- Sidebar -->
+        <aside class="w-64 bg-slate-900 text-white flex flex-col shadow-2xl z-20 hidden md:flex transition-all duration-300">
+            <div class="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-900">
+                <div class="flex items-center gap-2 text-blue-500">
+                    <i class="fas fa-paper-plane text-2xl"></i>
+                    <span class="text-xl font-bold tracking-wide text-white">Sms<span class="text-blue-500">Blast</span></span>
+                </div>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto py-6 scrollbar-hide">
+                <nav class="space-y-1 px-3">
+                    <a href="./index.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-tachometer-alt w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Dashboard</span>
+                    </a>
+                    
+                    <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Send SMS</p>
+                    <a href="./single_sms_send.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-paper-plane w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Single SMS Send</span>
+                    </a>
+                    <a href="./bulk_sms_send.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-mail-bulk w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Bulk SMS Send</span>
+                    </a>
+
+                    <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Reports & Finance</p>
+                    <a href="./sms_logs.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-list-alt w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">SMS Logs</span>
+                    </a>
+                    <a href="./transactions.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-exchange-alt w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Transactions</span>
+                    </a>
+                    <a href="./sms_balance.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-wallet w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">SMS Balance</span>
+                    </a>
+                    <a href="./funds.html" class="flex items-center px-4 py-3 bg-blue-600 text-white rounded-lg group shadow-lg shadow-blue-900/20">
+                        <i class="fas fa-money-bill-wave w-6 text-center"></i>
+                        <span class="ml-3 font-medium">Funds</span>
+                    </a>
+
+                    <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Management</p>
+                   <a href="./sender_info.html" class="flex items-center px-4 py-3 bg-blue-600 text-white rounded-lg group shadow-lg shadow-blue-900/20">
+                        <i class="fas fa-id-card w-6 text-center"></i>
+                        <span class="ml-3 font-medium">Sender Info</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-users w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Users</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-code w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Development Settings</span>
+                    </a>
+                </nav>
+            </div>
+             <!-- User Profile -->
+            <div class="p-4 border-t border-slate-800 bg-slate-900">
+                <button class="flex items-center gap-3 w-full hover:bg-slate-800 p-2 rounded-lg transition-colors">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=3B82F6&color=fff" class="h-9 w-9 rounded-full border-2 border-slate-700">
+                    <div class="text-left">
+                        <p class="text-sm font-medium text-white">Admin User</p>
+                        <p class="text-xs text-slate-400">View Profile</p>
+                    </div>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col h-screen overflow-hidden bg-gray-50">
+            
+            <!-- Header -->
+            <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 z-10 shadow-sm">
+                <nav class="flex" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                        <li class="inline-flex items-center"><a href="#" class="text-gray-500 hover:text-gray-900 font-medium text-sm">Reports & Finance</a></li>
+                        <li>
+                            <div class="flex items-center">
+                                <i class="fas fa-chevron-right text-gray-400 text-xs mx-2"></i>
+                                <span class="text-gray-800 font-medium text-sm">Add Funds</span>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+                <div class="flex items-center gap-4">
+                     <div class="flex items-center gap-2 px-3 py-1.5 bg-blue-50 rounded-full border border-blue-100">
+                        <i class="fas fa-wallet text-green-600 text-sm"></i>
+                        <span class="text-sm font-semibold text-blue-900">5,450 Tk</span>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600"><i class="fas fa-bell text-xl"></i></button>
+                </div>
+            </header>
+
+            <!-- Scrollable Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto p-6 md:p-8">
+                
+                <div class="max-w-5xl mx-auto space-y-8">
+                    
+                    <!-- Title -->
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">Add Funds</h1>
+                        <p class="text-sm text-gray-500">Recharge your account balance instantly.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        
+                        <!-- Left: Payment Form -->
+                        <div class="lg:col-span-2 space-y-8">
+                            
+                            <!-- 1. Select Method -->
+                            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                                <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-4">1. Select Payment Method</h3>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    
+                                    <!-- bKash -->
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="gateway" value="bkash" class="peer sr-only" checked>
+                                        <div class="p-4 rounded-lg border border-gray-200 hover:border-blue-500 hover:bg-blue-50 transition peer-checked:border-blue-500 peer-checked:bg-blue-50 peer-checked:ring-2 peer-checked:ring-blue-500 flex flex-col items-center justify-center gap-2 h-24">
+                                            <!-- Placeholder for bKash Logo -->
+                                            <div class="text-pink-600 font-bold text-lg">bKash</div>
+                                        </div>
+                                    </label>
+
+                                    <!-- Nagad -->
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="gateway" value="nagad" class="peer sr-only">
+                                        <div class="p-4 rounded-lg border border-gray-200 hover:border-orange-500 hover:bg-orange-50 transition peer-checked:border-orange-500 peer-checked:bg-orange-50 peer-checked:ring-2 peer-checked:ring-orange-500 flex flex-col items-center justify-center gap-2 h-24">
+                                            <!-- Placeholder for Nagad Logo -->
+                                            <div class="text-orange-600 font-bold text-lg">Nagad</div>
+                                        </div>
+                                    </label>
+
+                                    <!-- Card -->
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="gateway" value="card" class="peer sr-only">
+                                        <div class="p-4 rounded-lg border border-gray-200 hover:border-gray-500 hover:bg-gray-50 transition peer-checked:border-gray-500 peer-checked:bg-gray-100 peer-checked:ring-2 peer-checked:ring-gray-500 flex flex-col items-center justify-center gap-2 h-24">
+                                            <i class="fas fa-credit-card text-2xl text-gray-600"></i>
+                                            <span class="text-xs font-medium text-gray-600">Visa/MC</span>
+                                        </div>
+                                    </label>
+
+                                    <!-- Bank -->
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="gateway" value="bank" class="peer sr-only">
+                                        <div class="p-4 rounded-lg border border-gray-200 hover:border-gray-500 hover:bg-gray-50 transition peer-checked:border-gray-500 peer-checked:bg-gray-100 peer-checked:ring-2 peer-checked:ring-gray-500 flex flex-col items-center justify-center gap-2 h-24">
+                                            <i class="fas fa-university text-2xl text-gray-600"></i>
+                                            <span class="text-xs font-medium text-gray-600">Bank Transfer</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- 2. Enter Amount -->
+                            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                                <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-4">2. Enter Amount</h3>
+                                
+                                <div class="flex flex-wrap gap-3 mb-4">
+                                    <button type="button" onclick="setAmount(500)" class="px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 text-sm font-medium focus:ring-2 focus:ring-blue-500">500 Tk</button>
+                                    <button type="button" onclick="setAmount(1000)" class="px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 text-sm font-medium focus:ring-2 focus:ring-blue-500">1,000 Tk</button>
+                                    <button type="button" onclick="setAmount(2000)" class="px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 text-sm font-medium focus:ring-2 focus:ring-blue-500">2,000 Tk</button>
+                                    <button type="button" onclick="setAmount(5000)" class="px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 text-sm font-medium focus:ring-2 focus:ring-blue-500">5,000 Tk</button>
+                                </div>
+
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-lg">৳</span>
+                                    <input type="number" id="amountInput" class="pl-8 block w-full rounded-lg border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-blue-500 text-lg p-3 border" placeholder="Enter custom amount" min="100">
+                                </div>
+                                <p class="mt-2 text-xs text-gray-500">Minimum recharge amount is 100 Tk.</p>
+                            </div>
+
+                            <!-- 3. Verification (Conditional) -->
+                            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                                <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-4">3. Payment Details</h3>
+                                
+                                <!-- Instructions -->
+                                <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-4 text-sm text-blue-800">
+                                    <p class="font-bold mb-1">bKash Personal: 01700000000</p>
+                                    <p>Please use "Send Money" option. Reference: <span class="font-mono bg-blue-100 px-1 rounded">USER-123</span></p>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Sender Mobile Number</label>
+                                        <input type="text" class="block w-full rounded-lg border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2.5 border" placeholder="e.g. 017...">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Transaction ID (TrxID)</label>
+                                        <input type="text" class="block w-full rounded-lg border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2.5 border" placeholder="e.g. 9G7H7...">
+                                    </div>
+                                </div>
+
+                                <div class="mt-6">
+                                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow-lg shadow-blue-500/30 transition transform hover:-translate-y-0.5 flex items-center justify-center">
+                                        <i class="fas fa-check-circle mr-2"></i> Submit Payment Verification
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Summary & Support -->
+                        <div class="lg:col-span-1 space-y-6">
+                            
+                            <!-- Summary -->
+                            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                                <h3 class="text-sm font-bold text-gray-900 mb-4">Transaction Summary</h3>
+                                <div class="space-y-3 pb-4 border-b border-gray-100 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-500">Recharge Amount</span>
+                                        <span class="font-medium text-gray-900" id="summaryAmount">0.00 Tk</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-500">Processing Fee (0%)</span>
+                                        <span class="font-medium text-gray-900">0.00 Tk</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-500">VAT (0%)</span>
+                                        <span class="font-medium text-gray-900">0.00 Tk</span>
+                                    </div>
+                                </div>
+                                <div class="pt-4 flex justify-between items-center">
+                                    <span class="font-bold text-gray-900">Total Payable</span>
+                                    <span class="font-bold text-xl text-blue-600" id="totalAmount">0.00 Tk</span>
+                                </div>
+                            </div>
+
+                            <!-- Bank Info Widget -->
+                            <div class="bg-gray-900 rounded-xl shadow-lg p-6 text-white">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <i class="fas fa-university text-2xl text-blue-400"></i>
+                                    <h3 class="text-lg font-bold">Bank Transfer</h3>
+                                </div>
+                                <div class="space-y-3 text-sm text-gray-300">
+                                    <div>
+                                        <p class="text-gray-500 text-xs uppercase">Bank Name</p>
+                                        <p class="font-medium text-white">Dutch Bangla Bank Ltd.</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-500 text-xs uppercase">Account Name</p>
+                                        <p class="font-medium text-white">SmsBlast Technology</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-500 text-xs uppercase">Account Number</p>
+                                        <p class="font-mono text-white tracking-wider">125.110.44552</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-500 text-xs uppercase">Branch</p>
+                                        <p class="font-medium text-white">Gulshan Circle-1</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Support -->
+                            <div class="text-center">
+                                <p class="text-sm text-gray-500">Need help with payments?</p>
+                                <a href="#" class="text-sm font-medium text-blue-600 hover:underline">Contact Support</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        function setAmount(val) {
+            document.getElementById('amountInput').value = val;
+            updateSummary();
+        }
+
+        const amountInput = document.getElementById('amountInput');
+        const summaryAmount = document.getElementById('summaryAmount');
+        const totalAmount = document.getElementById('totalAmount');
+
+        function updateSummary() {
+            const val = parseFloat(amountInput.value) || 0;
+            const formatted = val.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Tk";
+            summaryAmount.textContent = formatted;
+            totalAmount.textContent = formatted;
+        }
+
+        amountInput.addEventListener('input', updateSummary);
+    </script>
+</body>
+</html>

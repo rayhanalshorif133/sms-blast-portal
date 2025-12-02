@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS Balance - SmsBlast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <div class="flex h-screen overflow-hidden">
+
+        <!-- Sidebar -->
+        <aside class="w-64 bg-slate-900 text-white flex flex-col shadow-2xl z-20 hidden md:flex transition-all duration-300">
+            <div class="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-900">
+                <div class="flex items-center gap-2 text-blue-500">
+                    <i class="fas fa-paper-plane text-2xl"></i>
+                    <span class="text-xl font-bold tracking-wide text-white">Sms<span class="text-blue-500">Blast</span></span>
+                </div>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto py-6 scrollbar-hide">
+                <nav class="space-y-1 px-3">
+                    <a href="./index.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-tachometer-alt w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Dashboard</span>
+                    </a>
+                    
+                    <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Send SMS</p>
+                    <a href="./single_sms_send.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-paper-plane w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Single SMS Send</span>
+                    </a>
+                    <a href="./bulk_sms_send.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-mail-bulk w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Bulk SMS Send</span>
+                    </a>
+
+                    <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Reports & Finance</p>
+                    <a href="./sms_logs.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-list-alt w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">SMS Logs</span>
+                    </a>
+                    <a href="./transactions.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-exchange-alt w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Transactions</span>
+                    </a>
+                    <a href="./sms_balance.html" class="flex items-center px-4 py-3 bg-blue-600 text-white rounded-lg group shadow-lg shadow-blue-900/20">
+                        <i class="fas fa-wallet w-6 text-center"></i>
+                        <span class="ml-3 font-medium">SMS Balance</span>
+                    </a>
+                    <a href="./funds.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-money-bill-wave w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Funds</span>
+                    </a>
+
+                    <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Management</p>
+                   <a href="./sender_info.html" class="flex items-center px-4 py-3 bg-blue-600 text-white rounded-lg group shadow-lg shadow-blue-900/20">
+                        <i class="fas fa-id-card w-6 text-center"></i>
+                        <span class="ml-3 font-medium">Sender Info</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-users w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Users</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-code w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Development Settings</span>
+                    </a>
+                </nav>
+            </div>
+             <!-- User Profile -->
+            <div class="p-4 border-t border-slate-800 bg-slate-900">
+                <button class="flex items-center gap-3 w-full hover:bg-slate-800 p-2 rounded-lg transition-colors">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=3B82F6&color=fff" class="h-9 w-9 rounded-full border-2 border-slate-700">
+                    <div class="text-left">
+                        <p class="text-sm font-medium text-white">Admin User</p>
+                        <p class="text-xs text-slate-400">View Profile</p>
+                    </div>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col h-screen overflow-hidden bg-gray-50">
+            
+            <!-- Header -->
+            <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 z-10 shadow-sm">
+                <nav class="flex" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                        <li class="inline-flex items-center"><a href="#" class="text-gray-500 hover:text-gray-900 font-medium text-sm">Reports & Finance</a></li>
+                        <li>
+                            <div class="flex items-center">
+                                <i class="fas fa-chevron-right text-gray-400 text-xs mx-2"></i>
+                                <span class="text-gray-800 font-medium text-sm">SMS Balance</span>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+                <div class="flex items-center gap-4">
+                     <div class="flex items-center gap-2 px-3 py-1.5 bg-blue-50 rounded-full border border-blue-100">
+                        <i class="fas fa-wallet text-green-600 text-sm"></i>
+                        <span class="text-sm font-semibold text-blue-900">5,450 Tk</span>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600"><i class="fas fa-bell text-xl"></i></button>
+                </div>
+            </header>
+
+            <!-- Scrollable Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto p-6 md:p-8">
+                
+                <div class="max-w-6xl mx-auto space-y-6">
+                    
+                    <!-- Title -->
+                    <div class="flex items-center justify-between">
+                        <h1 class="text-2xl font-bold text-gray-900">Balance & Pricing</h1>
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium shadow-md shadow-blue-500/20 transition-transform hover:-translate-y-0.5">
+                            <i class="fas fa-plus-circle mr-2"></i> Recharge Balance
+                        </button>
+                    </div>
+
+                    <!-- Hero Balance Card -->
+                    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl shadow-lg p-8 text-white relative overflow-hidden">
+                        <!-- Decorative Circles -->
+                        <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white opacity-10 blur-2xl"></div>
+                        <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 rounded-full bg-white opacity-10 blur-xl"></div>
+                        
+                        <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 divide-y md:divide-y-0 md:divide-x divide-white/20">
+                            <div class="pr-8">
+                                <p class="text-blue-100 text-sm font-medium uppercase tracking-wide">Available Funds</p>
+                                <h2 class="text-4xl font-bold mt-2">5,450.00 <span class="text-2xl text-blue-200">Tk</span></h2>
+                                <p class="mt-4 text-sm text-blue-100 flex items-center gap-2">
+                                    <i class="fas fa-check-circle"></i> Non-expiring balance
+                                </p>
+                            </div>
+                            <div class="px-0 md:px-8 pt-6 md:pt-0">
+                                <p class="text-blue-100 text-sm font-medium uppercase tracking-wide">Estimated SMS Capacity</p>
+                                <h2 class="text-4xl font-bold mt-2">21,800 <span class="text-xl text-blue-200">SMS</span></h2>
+                                <p class="mt-4 text-sm text-blue-100">
+                                    Calculated at ~0.25 Tk / SMS
+                                </p>
+                            </div>
+                            <div class="pl-0 md:pl-8 pt-6 md:pt-0">
+                                <p class="text-blue-100 text-sm font-medium uppercase tracking-wide">Account Status</p>
+                                <div class="mt-3 inline-flex items-center px-3 py-1 rounded-full bg-green-400/20 border border-green-400/30 text-green-100 text-sm font-medium">
+                                    <span class="w-2 h-2 bg-green-400 rounded-full mr-2"></span> Active
+                                </div>
+                                <div class="mt-4 text-sm text-blue-100">
+                                    <p>Masking: <span class="font-bold">Enabled</span></p>
+                                    <p>Non-Masking: <span class="font-bold">Enabled</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        
+                        <!-- Pricing Table -->
+                        <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                            <h3 class="text-lg font-bold text-gray-900 mb-4">Current Pricing Rates</h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm text-left text-gray-500">
+                                    <thead class="text-xs text-gray-500 uppercase bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-3">Operator</th>
+                                            <th class="px-4 py-3 text-center">Standard Rate</th>
+                                            <th class="px-4 py-3 text-center">Masking Rate</th>
+                                            <th class="px-4 py-3 text-right">Coverage</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        <tr>
+                                            <td class="px-4 py-3 font-medium text-gray-900 flex items-center gap-2">
+                                                <div class="w-6 h-6 rounded bg-blue-100 flex items-center justify-center text-blue-600 text-xs font-bold">GP</div>
+                                                Grameenphone
+                                            </td>
+                                            <td class="px-4 py-3 text-center">0.25 Tk</td>
+                                            <td class="px-4 py-3 text-center">0.45 Tk</td>
+                                            <td class="px-4 py-3 text-right text-green-600"><i class="fas fa-signal"></i> Excellent</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-medium text-gray-900 flex items-center gap-2">
+                                                <div class="w-6 h-6 rounded bg-orange-100 flex items-center justify-center text-orange-600 text-xs font-bold">BL</div>
+                                                Banglalink
+                                            </td>
+                                            <td class="px-4 py-3 text-center">0.25 Tk</td>
+                                            <td class="px-4 py-3 text-center">0.45 Tk</td>
+                                            <td class="px-4 py-3 text-right text-green-600"><i class="fas fa-signal"></i> Excellent</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-medium text-gray-900 flex items-center gap-2">
+                                                <div class="w-6 h-6 rounded bg-red-100 flex items-center justify-center text-red-600 text-xs font-bold">RB</div>
+                                                Robi / Airtel
+                                            </td>
+                                            <td class="px-4 py-3 text-center">0.25 Tk</td>
+                                            <td class="px-4 py-3 text-center">0.45 Tk</td>
+                                            <td class="px-4 py-3 text-right text-green-600"><i class="fas fa-signal"></i> Excellent</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-medium text-gray-900 flex items-center gap-2">
+                                                <div class="w-6 h-6 rounded bg-teal-100 flex items-center justify-center text-teal-600 text-xs font-bold">TT</div>
+                                                Teletalk
+                                            </td>
+                                            <td class="px-4 py-3 text-center">0.30 Tk</td>
+                                            <td class="px-4 py-3 text-center">0.50 Tk</td>
+                                            <td class="px-4 py-3 text-right text-yellow-500"><i class="fas fa-signal"></i> Good</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Low Balance Alert -->
+                        <div class="space-y-6">
+                            <!-- Alert Widget -->
+                            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="p-2 bg-yellow-100 rounded-lg text-yellow-600">
+                                        <i class="fas fa-bell"></i>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-gray-900">Low Balance Alert</h3>
+                                </div>
+                                <p class="text-sm text-gray-500 mb-4">Receive an email or SMS notification when your balance drops below a threshold.</p>
+                                
+                                <form action="#" onsubmit="event.preventDefault();" class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Threshold Amount (Tk)</label>
+                                        <div class="relative">
+                                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">৳</span>
+                                            <input type="number" value="500" class="pl-8 block w-full rounded-lg border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2.5 border">
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="email-notify" type="checkbox" checked class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                        <label for="email-notify" class="ml-2 text-sm text-gray-900">Notify via Email</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="sms-notify" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                        <label for="sms-notify" class="ml-2 text-sm text-gray-900">Notify via SMS (Cost applies)</label>
+                                    </div>
+                                    <button class="w-full bg-gray-900 hover:bg-gray-800 text-white font-medium py-2 rounded-lg transition text-sm">Save Preferences</button>
+                                </form>
+                            </div>
+
+                            <!-- Recharge History (Compact) -->
+                            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                                <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wide mb-4">Recent Recharges</h3>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-xs"><i class="fas fa-plus"></i></div>
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-900">2,000 Tk</p>
+                                                <p class="text-xs text-gray-500">Oct 24 • bKash</p>
+                                            </div>
+                                        </div>
+                                        <span class="text-xs font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded">Success</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-xs"><i class="fas fa-plus"></i></div>
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-900">5,000 Tk</p>
+                                                <p class="text-xs text-gray-500">Oct 20 • Nagad</p>
+                                            </div>
+                                        </div>
+                                        <span class="text-xs font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded">Success</span>
+                                    </div>
+                                </div>
+                                <a href="./transactions.html" class="block mt-4 text-center text-sm text-blue-600 hover:underline">View All Transactions</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+</body>
+</html>

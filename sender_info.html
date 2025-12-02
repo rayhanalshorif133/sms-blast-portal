@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sender Info - SmsBlast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <div class="flex h-screen overflow-hidden">
+
+        <!-- Sidebar -->
+        <aside class="w-64 bg-slate-900 text-white flex flex-col shadow-2xl z-20 hidden md:flex transition-all duration-300">
+            <div class="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-900">
+                <div class="flex items-center gap-2 text-blue-500">
+                    <i class="fas fa-paper-plane text-2xl"></i>
+                    <span class="text-xl font-bold tracking-wide text-white">Sms<span class="text-blue-500">Blast</span></span>
+                </div>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto py-6 scrollbar-hide">
+                <nav class="space-y-1 px-3">
+                    <a href="./index.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-tachometer-alt w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Dashboard</span>
+                    </a>
+                    
+                    <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Send SMS</p>
+                    <a href="./single_sms_send.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-paper-plane w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Single SMS Send</span>
+                    </a>
+                    <a href="./bulk_sms_send.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-mail-bulk w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Bulk SMS Send</span>
+                    </a>
+
+                    <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Reports & Finance</p>
+                    <a href="./sms_logs.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-list-alt w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">SMS Logs</span>
+                    </a>
+                    <a href="./transactions.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-exchange-alt w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Transactions</span>
+                    </a>
+                    <a href="./sms_balance.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-wallet w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">SMS Balance</span>
+                    </a>
+                    <a href="./funds.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-money-bill-wave w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Funds</span>
+                    </a>
+
+                    <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Management</p>
+
+                    <a href="./sender_info.html" class="flex items-center px-4 py-3 bg-blue-600 text-white rounded-lg group shadow-lg shadow-blue-900/20">
+                        <i class="fas fa-id-card w-6 text-center"></i>
+                        <span class="ml-3 font-medium">Sender Info</span>
+                    </a>
+
+                    <a href="./sender_info.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-money-bill-wave w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Sender Info</span>
+                    </a>
+                    
+                    <a href="#" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-users w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Users</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-code w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Development Settings</span>
+                    </a>
+                </nav>
+            </div>
+             <!-- User Profile -->
+            <div class="p-4 border-t border-slate-800 bg-slate-900">
+                <button class="flex items-center gap-3 w-full hover:bg-slate-800 p-2 rounded-lg transition-colors">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=3B82F6&color=fff" class="h-9 w-9 rounded-full border-2 border-slate-700">
+                    <div class="text-left">
+                        <p class="text-sm font-medium text-white">Admin User</p>
+                        <p class="text-xs text-slate-400">View Profile</p>
+                    </div>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col h-screen overflow-hidden bg-gray-50">
+            
+            <!-- Header -->
+            <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 z-10 shadow-sm">
+                <nav class="flex" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                        <li class="inline-flex items-center"><a href="#" class="text-gray-500 hover:text-gray-900 font-medium text-sm">Management</a></li>
+                        <li>
+                            <div class="flex items-center">
+                                <i class="fas fa-chevron-right text-gray-400 text-xs mx-2"></i>
+                                <span class="text-gray-800 font-medium text-sm">Sender Info</span>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+                <div class="flex items-center gap-4">
+                     <div class="flex items-center gap-2 px-3 py-1.5 bg-blue-50 rounded-full border border-blue-100">
+                        <i class="fas fa-wallet text-green-600 text-sm"></i>
+                        <span class="text-sm font-semibold text-blue-900">5,450 Tk</span>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600"><i class="fas fa-bell text-xl"></i></button>
+                </div>
+            </header>
+
+            <!-- Scrollable Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto p-6 md:p-8">
+                
+                <div class="max-w-7xl mx-auto space-y-8">
+                    
+                    <!-- Title & Overview -->
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="flex-1">
+                            <h1 class="text-2xl font-bold text-gray-900">Sender IDs</h1>
+                            <p class="text-sm text-gray-500">Manage your masking names (Brand Names) for SMS campaigns.</p>
+                        </div>
+                        
+                        <!-- Mini Stats -->
+                        <div class="flex gap-4">
+                            <div class="bg-white px-4 py-3 rounded-lg border border-gray-200 shadow-sm flex items-center gap-3">
+                                <div class="bg-green-100 p-2 rounded-full text-green-600"><i class="fas fa-check"></i></div>
+                                <div>
+                                    <p class="text-xs text-gray-500 uppercase font-semibold">Active</p>
+                                    <p class="text-lg font-bold text-gray-900">2</p>
+                                </div>
+                            </div>
+                            <div class="bg-white px-4 py-3 rounded-lg border border-gray-200 shadow-sm flex items-center gap-3">
+                                <div class="bg-yellow-100 p-2 rounded-full text-yellow-600"><i class="fas fa-clock"></i></div>
+                                <div>
+                                    <p class="text-xs text-gray-500 uppercase font-semibold">Pending</p>
+                                    <p class="text-lg font-bold text-gray-900">1</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        
+                        <!-- Left: Request Form -->
+                        <div class="lg:col-span-1">
+                            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-6">
+                                <div class="flex items-center gap-2 mb-4">
+                                    <div class="bg-blue-100 p-2 rounded-lg text-blue-600">
+                                        <i class="fas fa-plus"></i>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-gray-900">Request New ID</h3>
+                                </div>
+                                <p class="text-sm text-gray-500 mb-6">Sender IDs must be alphanumeric and max 11 characters. Approval may take 24-48 hours.</p>
+
+                                <form action="#" class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Sender Name (Brand)</label>
+                                        <input type="text" maxlength="11" class="block w-full rounded-lg border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2.5 border uppercase" placeholder="e.g. MYBRAND">
+                                        <p class="text-xs text-gray-400 mt-1 text-right">0/11 Characters</p>
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Description / Usage</label>
+                                        <textarea rows="3" class="block w-full rounded-lg border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2.5 border" placeholder="Briefly describe how this ID will be used (e.g. OTP, Marketing)..."></textarea>
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Supporting Documents</label>
+                                        <label class="flex flex-col items-center justify-center w-full h-24 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                                <i class="fas fa-cloud-upload-alt text-gray-400 mb-2"></i>
+                                                <p class="text-xs text-gray-500">Trade License / Authorization Letter</p>
+                                            </div>
+                                            <input type="file" class="hidden" />
+                                        </label>
+                                    </div>
+
+                                    <div class="flex items-start">
+                                        <div class="flex items-center h-5">
+                                            <input id="terms" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300">
+                                        </div>
+                                        <label for="terms" class="ml-2 text-xs font-medium text-gray-900">I confirm that I have the legal right to use this brand name.</label>
+                                    </div>
+
+                                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg shadow-md transition text-sm">Submit Request</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Right: Sender ID List -->
+                        <div class="lg:col-span-2">
+                            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                                <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                                    <h3 class="font-bold text-gray-900">My Sender IDs</h3>
+                                    <div class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Total: 4</div>
+                                </div>
+                                
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm text-left text-gray-500">
+                                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3">Sender Name</th>
+                                                <th scope="col" class="px-6 py-3">Requested On</th>
+                                                <th scope="col" class="px-6 py-3">Status</th>
+                                                <th scope="col" class="px-6 py-3 text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Item 1 -->
+                                            <tr class="bg-white border-b hover:bg-gray-50">
+                                                <td class="px-6 py-4 font-medium text-gray-900">
+                                                    SMSBLAST
+                                                    <span class="block text-xs text-gray-500 font-normal">System Default</span>
+                                                </td>
+                                                <td class="px-6 py-4">Oct 01, 2025</td>
+                                                <td class="px-6 py-4">
+                                                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded border border-green-200">Active</span>
+                                                </td>
+                                                <td class="px-6 py-4 text-right">
+                                                    <button class="text-gray-400 cursor-not-allowed"><i class="fas fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                            <!-- Item 2 -->
+                                            <tr class="bg-white border-b hover:bg-gray-50">
+                                                <td class="px-6 py-4 font-medium text-gray-900">
+                                                    MYBRAND
+                                                </td>
+                                                <td class="px-6 py-4">Oct 15, 2025</td>
+                                                <td class="px-6 py-4">
+                                                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded border border-green-200">Active</span>
+                                                </td>
+                                                <td class="px-6 py-4 text-right">
+                                                    <button class="text-red-600 hover:text-red-900"><i class="fas fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                            <!-- Item 3 -->
+                                            <tr class="bg-white border-b hover:bg-gray-50">
+                                                <td class="px-6 py-4 font-medium text-gray-900">
+                                                    OFFER24
+                                                </td>
+                                                <td class="px-6 py-4">Oct 24, 2025</td>
+                                                <td class="px-6 py-4">
+                                                    <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded border border-yellow-200">Pending</span>
+                                                </td>
+                                                <td class="px-6 py-4 text-right">
+                                                    <button class="text-gray-400 hover:text-gray-600"><i class="fas fa-times-circle"></i></button>
+                                                </td>
+                                            </tr>
+                                            <!-- Item 4 -->
+                                            <tr class="bg-white hover:bg-gray-50">
+                                                <td class="px-6 py-4 font-medium text-gray-900">
+                                                    TEST_ID
+                                                </td>
+                                                <td class="px-6 py-4">Sep 10, 2025</td>
+                                                <td class="px-6 py-4">
+                                                    <div class="flex items-center gap-1 group relative cursor-help">
+                                                        <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded border border-red-200">Rejected</span>
+                                                        <i class="fas fa-info-circle text-red-400 text-xs"></i>
+                                                        <!-- Tooltip -->
+                                                        <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-gray-800 text-white text-xs rounded hidden group-hover:block z-10 shadow-lg">
+                                                            Reason: Invalid trade license document provided.
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-4 text-right">
+                                                    <button class="text-blue-600 hover:text-blue-900 text-xs font-medium">Re-apply</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Information Card -->
+                            <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 mt-6 flex gap-4 items-start">
+                                <div class="text-blue-600 mt-1"><i class="fas fa-info-circle text-xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-blue-900 text-sm">Need a Non-Masking ID?</h4>
+                                    <p class="text-xs text-blue-800 mt-1">Non-masking (numerical) sender IDs are assigned automatically by the system based on availability. You do not need to request them manually.</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+</body>
+</html>

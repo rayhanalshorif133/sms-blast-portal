@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Bulk SMS - SmsBlast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Mobile Preview Styling */
+        .mobile-frame {
+            border: 12px solid #1f2937;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            background: #fff;
+            height: 600px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .mobile-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 25px;
+            background: #1f2937;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            z-index: 10;
+        }
+
+        .chat-bubble {
+            position: relative;
+            background: #e5e7eb;
+            border-radius: 20px;
+            border-bottom-left-radius: 2px;
+            padding: 10px 15px;
+            margin-bottom: 5px;
+            display: inline-block;
+            max-width: 80%;
+            font-size: 14px;
+            color: #1f2937;
+        }
+
+        /* Tab Active State */
+        .tab-active {
+            border-bottom: 2px solid #2563eb;
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .tab-inactive {
+            color: #6b7280;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-inactive:hover {
+            color: #374151;
+            border-bottom: 2px solid #d1d5db;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <div class="flex h-screen overflow-hidden">
+
+        <!-- Sidebar -->
+        <aside
+            class="w-64 bg-slate-900 text-white flex flex-col shadow-2xl z-20 hidden md:flex transition-all duration-300">
+            <div class="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-900">
+                <div class="flex items-center gap-2 text-blue-500">
+                    <i class="fas fa-paper-plane text-2xl"></i>
+                    <span class="text-xl font-bold tracking-wide text-white">Sms<span
+                            class="text-blue-500">Blast</span></span>
+                </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto py-6 scrollbar-hide">
+                <nav class="space-y-1 px-3">
+                    <a href="./index.html"
+                        class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i
+                            class="fas fa-tachometer-alt w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Dashboard</span>
+                    </a>
+
+                    <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Send SMS</p>
+                    <a href="./single_sms_send.html"
+                        class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-paper-plane w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Single SMS Send</span>
+                    </a>
+                    <a href="./bulk_sms_send.html"
+                        class="flex items-center px-4 py-3 bg-blue-600 text-white rounded-lg group shadow-lg shadow-blue-900/20">
+                        <i class="fas fa-mail-bulk w-6 text-center"></i>
+                        <span class="ml-3 font-medium">Bulk SMS Send</span>
+                    </a>
+
+                    <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Reports &
+                        Finance</p>
+                    <a href="./sms_logs.html"
+                        class="flex items-center px-4 py-3 bg-blue-600 text-white rounded-lg group shadow-lg shadow-blue-900/20">
+                        <i class="fas fa-list-alt w-6 text-center"></i>
+                        <span class="ml-3 font-medium">SMS Logs</span>
+                    </a>
+                    <a href="./transactions.html"
+                        class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-exchange-alt w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3 font-medium">Transactions</span>
+                    </a>
+                    <a href="./sms_balance.html"
+                        class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-wallet w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">SMS Balance</span>
+                    </a>
+                    <a href="./funds.html"
+                        class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i
+                            class="fas fa-money-bill-wave w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Funds</span>
+                    </a>
+
+                    <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Management
+                    </p>
+                    <a href="#"
+                        class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-id-card w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Sender Info</span>
+                    </a>
+                    <a href="#"
+                        class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-users w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Users</span>
+                    </a>
+                    <a href="#"
+                        class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-code w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Development Settings</span>
+                    </a>
+                </nav>
+            </div>
+            <!-- User Profile -->
+            <div class="p-4 border-t border-slate-800 bg-slate-900">
+                <button class="flex items-center gap-3 w-full hover:bg-slate-800 p-2 rounded-lg transition-colors">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=3B82F6&color=fff"
+                        class="h-9 w-9 rounded-full border-2 border-slate-700">
+                    <div class="text-left">
+                        <p class="text-sm font-medium text-white">Admin User</p>
+                        <p class="text-xs text-slate-400">View Profile</p>
+                    </div>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col h-screen overflow-hidden bg-gray-50">
+
+            <!-- Header -->
+            <header
+                class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 z-10 shadow-sm">
+                <nav class="flex" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                        <li class="inline-flex items-center"><a href="#"
+                                class="text-gray-500 hover:text-gray-900 font-medium text-sm">Send SMS</a></li>
+                        <li>
+                            <div class="flex items-center">
+                                <i class="fas fa-chevron-right text-gray-400 text-xs mx-2"></i>
+                                <span class="text-gray-800 font-medium text-sm">Bulk Send</span>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2 px-3 py-1.5 bg-blue-50 rounded-full border border-blue-100">
+                        <i class="fas fa-wallet text-green-600 text-sm"></i>
+                        <span class="text-sm font-semibold text-blue-900">5,450 Tk</span>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600"><i class="fas fa-bell text-xl"></i></button>
+                </div>
+            </header>
+
+            <!-- Scrollable Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto p-6 md:p-8">
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+
+                    <!-- Left Column: Bulk SMS Form -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                            <h2 class="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
+                                <i class="fas fa-mail-bulk text-blue-600"></i> New Bulk Campaign
+                            </h2>
+
+                            <form action="#" class="space-y-6">
+                                <!-- Campaign Info -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Campaign
+                                            Title</label>
+                                        <input type="text"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                            placeholder="e.g. Eid Promo 2025" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Sender ID</label>
+                                        <select
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                                            <option>SmsBlast (Default)</option>
+                                            <option>MyBrand</option>
+                                            <option>OfferAlert</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Recipients Selection (Tabs) -->
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Select
+                                        Recipients</label>
+                                    <div class="border-b border-gray-200">
+                                        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
+                                            <li class="mr-2">
+                                                <button type="button" onclick="switchTab('groups')" id="tab-groups"
+                                                    class="inline-block p-4 rounded-t-lg tab-active">
+                                                    <i class="fas fa-users mr-2"></i>By Group
+                                                </button>
+                                            </li>
+                                            <li class="mr-2">
+                                                <button type="button" onclick="switchTab('upload')" id="tab-upload"
+                                                    class="inline-block p-4 rounded-t-lg tab-inactive">
+                                                    <i class="fas fa-file-upload mr-2"></i>Upload File
+                                                </button>
+                                            </li>
+                                            <li class="mr-2">
+                                                <button type="button" onclick="switchTab('paste')" id="tab-paste"
+                                                    class="inline-block p-4 rounded-t-lg tab-inactive">
+                                                    <i class="fas fa-clipboard mr-2"></i>Paste Numbers
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Tab Contents -->
+                                    <div id="content-groups"
+                                        class="p-4 bg-gray-50 rounded-b-lg border border-t-0 border-gray-200">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900">Select User
+                                            Groups</label>
+                                        <select multiple
+                                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-32">
+                                            <option value="1">All Users (45,000 contacts)</option>
+                                            <option value="2">VIP Customers (1,200 contacts)</option>
+                                            <option value="3">New Signups - Oct (450 contacts)</option>
+                                            <option value="4">Staff Members (25 contacts)</option>
+                                            <option value="5">Inactive Users (3,000 contacts)</option>
+                                        </select>
+                                        <p class="mt-2 text-xs text-gray-500">Hold Ctrl (Windows) or Cmd (Mac) to select
+                                            multiple groups.</p>
+                                    </div>
+
+                                    <div id="content-upload"
+                                        class="hidden p-4 bg-gray-50 rounded-b-lg border border-t-0 border-gray-200">
+                                        <div class="flex items-center justify-center w-full">
+                                            <label for="dropzone-file"
+                                                class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white hover:bg-gray-100">
+                                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                                    <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-3"></i>
+                                                    <p class="mb-2 text-sm text-gray-500"><span
+                                                            class="font-semibold">Click to upload</span> or drag and
+                                                        drop</p>
+                                                    <p class="text-xs text-gray-500">CSV, XLSX or TXT (MAX. 10MB)</p>
+                                                </div>
+                                                <input id="dropzone-file" type="file" class="hidden" />
+                                            </label>
+                                        </div>
+                                        <div class="mt-3 text-xs text-blue-600 flex items-center gap-2">
+                                            <i class="fas fa-download"></i> <a href="#" class="hover:underline">Download
+                                                Sample CSV</a>
+                                        </div>
+                                    </div>
+
+                                    <div id="content-paste"
+                                        class="hidden p-4 bg-gray-50 rounded-b-lg border border-t-0 border-gray-200">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900">Enter Mobile
+                                            Numbers</label>
+                                        <textarea rows="4"
+                                            class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                            placeholder="01712345678, 01812345678... (Separated by comma or new line)"></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Message Body -->
+                                <div>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label class="block text-sm font-medium text-gray-700">Message Content</label>
+                                        <div class="relative">
+                                            <select id="templateSelect"
+                                                class="bg-blue-50 border border-blue-200 text-blue-800 text-xs rounded px-2 py-1 cursor-pointer hover:bg-blue-100 focus:outline-none">
+                                                <option value="">Insert Template...</option>
+                                                <option value="Dear customer, don't miss our Mega Sale!">Sale Promo
+                                                </option>
+                                                <option value="System maintenance scheduled for tonight.">System Alert
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <textarea id="messageBody" rows="4"
+                                        class="block p-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                        placeholder="Type your message here..."></textarea>
+
+                                    <div class="flex justify-between items-center mt-2 px-1">
+                                        <div class="flex gap-4 text-xs text-gray-500">
+                                            <span id="charCount">Characters: 0</span>
+                                            <span id="smsCount" class="font-semibold text-blue-600">Parts: 1</span>
+                                        </div>
+                                        <div class="flex items-center gap-4">
+                                            <div class="flex items-center">
+                                                <input id="type-text" type="radio" name="msg_type" value="text" checked
+                                                    class="w-3 h-3 text-blue-600">
+                                                <label for="type-text" class="ml-1 text-xs text-gray-700">Text</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input id="type-unicode" type="radio" name="msg_type" value="unicode"
+                                                    class="w-3 h-3 text-blue-600">
+                                                <label for="type-unicode"
+                                                    class="ml-1 text-xs text-gray-700">Unicode</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Scheduling -->
+                                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                    <div class="flex items-center mb-4">
+                                        <input id="schedule-checkbox" type="checkbox"
+                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                        <label for="schedule-checkbox"
+                                            class="ml-2 text-sm font-medium text-gray-900">Schedule Campaign</label>
+                                    </div>
+                                    <div id="schedule-inputs" class="grid grid-cols-2 gap-4 hidden">
+                                        <input type="date"
+                                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                        <input type="time"
+                                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                    </div>
+                                </div>
+
+                                <!-- Actions -->
+                                <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">
+                                    <button type="button"
+                                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5">Save
+                                        Draft</button>
+                                    <button type="submit"
+                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none flex items-center shadow-lg shadow-blue-500/30 transition-all transform hover:-translate-y-0.5">
+                                        <i class="fas fa-paper-plane mr-2"></i> Launch Campaign
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Summary & Preview -->
+                    <div class="lg:col-span-1 space-y-6">
+
+                        <!-- Campaign Summary Card -->
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-6">
+                            <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4">Campaign Summary
+                            </h3>
+
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center pb-3 border-b border-gray-100">
+                                    <span class="text-sm text-gray-600">Recipients</span>
+                                    <span class="text-sm font-bold text-gray-900">1,200 (Est)</span>
+                                </div>
+                                <div class="flex justify-between items-center pb-3 border-b border-gray-100">
+                                    <span class="text-sm text-gray-600">SMS Parts</span>
+                                    <span class="text-sm font-bold text-gray-900" id="summaryParts">1 x 0.25 Tk</span>
+                                </div>
+                                <div class="flex justify-between items-center pb-3 border-b border-gray-100">
+                                    <span class="text-sm text-gray-600">Total Cost</span>
+                                    <span class="text-lg font-bold text-blue-600">300.00 Tk</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600">Current Balance</span>
+                                    <span class="text-sm font-medium text-green-600">5,450.00 Tk</span>
+                                </div>
+                            </div>
+
+                            <!-- Validation Warning (Hidden by default) -->
+                            <div class="mt-4 p-3 bg-red-50 text-red-700 rounded-lg text-xs hidden">
+                                <i class="fas fa-exclamation-circle mr-1"></i> Insufficient balance for this campaign.
+                            </div>
+
+                            <div class="mt-6 pt-4 border-t border-gray-100">
+                                <h4 class="text-xs font-semibold text-gray-500 mb-2">Message Preview</h4>
+                                <div
+                                    class="bg-gray-100 rounded-lg p-3 text-sm text-gray-700 italic border border-gray-200 relative">
+                                    <i class="fas fa-quote-left text-gray-300 absolute top-1 left-2 text-xs"></i>
+                                    <p id="previewText" class="px-2">Type message to preview...</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            // Hide all content
+            document.getElementById('content-groups').classList.add('hidden');
+            document.getElementById('content-upload').classList.add('hidden');
+            document.getElementById('content-paste').classList.add('hidden');
+
+            // Show selected content
+            document.getElementById('content-' + tabId).classList.remove('hidden');
+
+            // Reset Tab Styles
+            const tabs = ['groups', 'upload', 'paste'];
+            tabs.forEach(t => {
+                const btn = document.getElementById('tab-' + t);
+                if (t === tabId) {
+                    btn.classList.add('tab-active');
+                    btn.classList.remove('tab-inactive');
+                } else {
+                    btn.classList.remove('tab-active');
+                    btn.classList.add('tab-inactive');
+                }
+            });
+        }
+
+        // Message & Cost Logic (Simplified)
+        const messageBody = document.getElementById('messageBody');
+        const charCount = document.getElementById('charCount');
+        const smsCount = document.getElementById('smsCount');
+        const summaryParts = document.getElementById('summaryParts');
+        const previewText = document.getElementById('previewText');
+        const typeUnicode = document.getElementById('type-unicode');
+        const typeText = document.getElementById('type-text');
+        const templateSelect = document.getElementById('templateSelect');
+        const scheduleCheckbox = document.getElementById('schedule-checkbox');
+        const scheduleInputs = document.getElementById('schedule-inputs');
+
+        function updateCalculations() {
+            const text = messageBody.value;
+            const len = text.length;
+            const isUnicode = typeUnicode.checked || /[^\u0000-\u00ff]/.test(text);
+
+            if (isUnicode && !typeUnicode.checked) typeUnicode.checked = true;
+
+            const limit = isUnicode ? 70 : 160;
+            const parts = len === 0 ? 0 : Math.ceil(len / limit);
+
+            charCount.textContent = `Characters: ${len}`;
+            smsCount.textContent = `Parts: ${parts}`;
+            summaryParts.textContent = `${parts} x 0.25 Tk`; // Mock calculation
+
+            previewText.textContent = len > 0 ? text : "Type message to preview...";
+            previewText.classList.toggle('italic', len === 0);
+        }
+
+        messageBody.addEventListener('input', updateCalculations);
+        typeUnicode.addEventListener('change', updateCalculations);
+        typeText.addEventListener('change', updateCalculations);
+
+        // Template Logic
+        templateSelect.addEventListener('change', (e) => {
+            if (e.target.value) {
+                messageBody.value = e.target.value;
+                updateCalculations();
+                e.target.value = "";
+            }
+        });
+
+        // Toggle Schedule
+        scheduleCheckbox.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                scheduleInputs.classList.remove('hidden');
+            } else {
+                scheduleInputs.classList.add('hidden');
+            }
+        });
+
+        // Init
+        updateCalculations();
+    </script>
+</body>
+
+</html>
