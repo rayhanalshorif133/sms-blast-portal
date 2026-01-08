@@ -1,80 +1,393 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmsBlast - Laravel v12 Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+        /* Custom Scrollbar for sidebar */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+    <div class="flex h-screen overflow-hidden">
 
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+        <!-- Sidebar -->
+        <aside class="w-64 bg-slate-900 text-white flex flex-col shadow-2xl z-20 hidden md:flex transition-all duration-300">
+            <!-- Brand -->
+            <div class="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-900">
+                <div class="flex items-center gap-2 text-blue-500">
+                    <i class="fas fa-paper-plane text-2xl"></i>
+                    <span class="text-xl font-bold tracking-wide text-white">Sms<span class="text-blue-500">Blast</span></span>
                 </div>
             </div>
-        </nav>
+            <!-- Navigation -->
+            <div class="flex-1 overflow-y-auto py-6 scrollbar-hide">
+                <nav class="space-y-1 px-3">
+                    <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-3 bg-blue-600 text-white rounded-lg group shadow-lg shadow-blue-900/20">
+                        <i class="fas fa-tachometer-alt w-6 text-center"></i>
+                        <span class="ml-3">Dashboard</span>
+                    </a>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+                    <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Send SMS</p>
+                    <a href="./single_sms_send.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-mail-bulk w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3 font-medium">Single SMS Send</span>
+                    </a>
+                    <a href="./bulk_sms_send.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-paper-plane w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Bulk SMS Send</span>
+                    </a>
+                    <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Reports & Finance</p>
+
+                    <a href="./sms_logs.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-paper-plane w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">SMS Logs</span>
+                    </a>
+                    <a href="./transactions.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-exchange-alt w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3 font-medium">Transactions</span>
+                    </a>
+                    <a href="./sms_balance.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-wallet w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">SMS Balance</span>
+                    </a>
+                    <a href="./funds.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-money-bill-wave w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Funds</span>
+                    </a>
+
+                    <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Management</p>
+
+                    <a href="./sender_info.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-users w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Sender Info</span>
+                    </a>
+                  <a href="./users.html"
+                        class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-users w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Users</span>
+                    </a>
+                    <a href="./development_settings.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                        <i class="fas fa-code w-6 text-center group-hover:text-blue-400 transition-colors"></i>
+                        <span class="ml-3">Development Settings</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- User Profile -->
+            <div class="p-4 border-t border-slate-800 bg-slate-900">
+                <button class="flex items-center gap-3 w-full hover:bg-slate-800 p-2 rounded-lg transition-colors">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=3B82F6&color=fff" class="h-9 w-9 rounded-full border-2 border-slate-700">
+                    <div class="text-left">
+                        <p class="text-sm font-medium text-white">Admin User</p>
+                        <p class="text-xs text-slate-400">View Profile</p>
+                    </div>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Wrapper -->
+        <div class="flex-1 flex flex-col h-screen overflow-hidden bg-gray-50">
+
+            <!-- Mobile Header -->
+            <header class="md:hidden h-16 bg-white shadow-sm flex items-center justify-between px-4 z-10">
+                <button class="text-gray-600 focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <span class="text-lg font-bold text-slate-800">SmsBlast</span>
+                <div class="w-8"></div> <!-- Spacer -->
+            </header>
+
+            <!-- Desktop Header -->
+            <header class="hidden md:flex h-16 bg-white border-b border-gray-200 items-center justify-between px-8 z-10">
+                <!-- Breadcrumb -->
+                <nav class="flex" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                        <li class="inline-flex items-center">
+                            <a href="#" class="text-gray-500 hover:text-gray-900 font-medium text-sm">Application</a>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <i class="fas fa-chevron-right text-gray-400 text-xs mx-2"></i>
+                                <span class="text-gray-800 font-medium text-sm">Dashboard</span>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+
+                <!-- Right Actions -->
+                <div class="flex items-center gap-6">
+                    <!-- Notifications -->
+                    <button class="relative text-gray-400 hover:text-gray-600 transition-colors">
+                        <i class="fas fa-bell text-xl"></i>
+                        <span class="absolute -top-1 -right-1 h-2.5 w-2.5 bg-red-500 rounded-full border-2 border-white"></span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Scrollable Main Area -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto p-6 md:p-8">
+
+                <!-- Welcome Section -->
+                <div class="mb-8">
+                    <h1 class="text-2xl font-bold text-gray-900">Dashboard Overview</h1>
+                    <p class="text-gray-500 text-sm mt-1">Real-time statistics for your SMS activity.</p>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+
+                    <!-- Today Send -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 relative overflow-hidden group hover:border-blue-200 transition-all">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Today Send</p>
+                                <h3 class="text-2xl font-bold text-gray-800 mt-2">1,450</h3>
+                            </div>
+                            <div class="p-3 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                                <i class="fas fa-paper-plane text-lg"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-xs">
+                            <span class="text-green-500 font-medium flex items-center bg-green-50 px-2 py-0.5 rounded">
+                                <i class="fas fa-chart-line mr-1"></i> Live
+                            </span>
+                            <span class="text-gray-400 ml-2">Updates real-time</span>
+                        </div>
+                    </div>
+
+                    <!-- Yesterday Send -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 relative overflow-hidden group hover:border-purple-200 transition-all">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Yesterday Send</p>
+                                <h3 class="text-2xl font-bold text-gray-800 mt-2">5,204</h3>
+                            </div>
+                            <div class="p-3 bg-purple-50 text-purple-600 rounded-lg group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                                <i class="fas fa-history text-lg"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-xs">
+                            <span class="text-gray-500">
+                                Total successfully delivered
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Per SMS Cost -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 relative overflow-hidden group hover:border-orange-200 transition-all">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Per SMS Cost</p>
+                                <h3 class="text-2xl font-bold text-gray-800 mt-2">0.25 Tk</h3>
+                            </div>
+                            <div class="p-3 bg-orange-50 text-orange-600 rounded-lg group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                                <i class="fas fa-tag text-lg"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-xs">
+                            <span class="text-gray-500">
+                                Standard Rate
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Total Balance -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 relative overflow-hidden group hover:border-green-200 transition-all">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Balance</p>
+                                <h3 class="text-2xl font-bold text-gray-800 mt-2">5,450 Tk</h3>
+                            </div>
+                            <div class="p-3 bg-green-50 text-green-600 rounded-lg group-hover:bg-green-600 group-hover:text-white transition-colors">
+                                <i class="fas fa-wallet text-lg"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-xs">
+                            <button class="text-blue-600 hover:underline font-medium">Add Funds</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Grid: Recent Logs & Purchases -->
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+
+                    <!-- Left: Recent SMS Logs (Replaces Campaigns) -->
+                    <div class="xl:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col">
+                        <div class="p-6 border-b border-gray-100 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+                            <div>
+                                <h2 class="text-lg font-bold text-gray-900">Recent SMS Logs</h2>
+                                <p class="text-sm text-gray-500">Latest messages sent from the system</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="px-3 py-1.5 text-xs font-medium text-blue-600 bg-blue-50 rounded hover:bg-blue-100 transition"><i class="fas fa-sync-alt mr-1"></i> Refresh</button>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto flex-1">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr>
+                                        <th class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase bg-gray-50/50">To (Mobile)</th>
+                                        <th class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase bg-gray-50/50">Operator</th>
+                                        <th class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase bg-gray-50/50">Cost</th>
+                                        <th class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase bg-gray-50/50 text-center">Status</th>
+                                        <th class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase bg-gray-50/50 text-right">Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100 text-sm">
+                                    <tr class="hover:bg-gray-50 transition">
+                                        <td class="px-6 py-4 font-medium text-gray-900">01712345678</td>
+                                        <td class="px-6 py-4 text-gray-600">Grameenphone</td>
+                                        <td class="px-6 py-4 text-gray-600">0.25 Tk</td>
+                                        <td class="px-6 py-4 text-center">
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                                Delivered
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 text-right text-gray-500">Just Now</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50 transition">
+                                        <td class="px-6 py-4 font-medium text-gray-900">01912345678</td>
+                                        <td class="px-6 py-4 text-gray-600">Banglalink</td>
+                                        <td class="px-6 py-4 text-gray-600">0.25 Tk</td>
+                                        <td class="px-6 py-4 text-center">
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                                Delivered
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 text-right text-gray-500">2 mins ago</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50 transition">
+                                        <td class="px-6 py-4 font-medium text-gray-900">01812345678</td>
+                                        <td class="px-6 py-4 text-gray-600">Robi</td>
+                                        <td class="px-6 py-4 text-gray-600">0.25 Tk</td>
+                                        <td class="px-6 py-4 text-center">
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                                Failed
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 text-right text-gray-500">5 mins ago</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50 transition">
+                                        <td class="px-6 py-4 font-medium text-gray-900">01612345678</td>
+                                        <td class="px-6 py-4 text-gray-600">Airtel</td>
+                                        <td class="px-6 py-4 text-gray-600">0.25 Tk</td>
+                                        <td class="px-6 py-4 text-center">
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                                Delivered
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 text-right text-gray-500">10 mins ago</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50 transition">
+                                        <td class="px-6 py-4 font-medium text-gray-900">01512345678</td>
+                                        <td class="px-6 py-4 text-gray-600">Teletalk</td>
+                                        <td class="px-6 py-4 text-gray-600">0.25 Tk</td>
+                                        <td class="px-6 py-4 text-center">
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                                                Pending
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 text-right text-gray-500">12 mins ago</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Right: Recent Purchases (Replaces Quick Send) -->
+                    <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-lg font-bold text-gray-900">Recent Purchases</h2>
+                            <i class="fas fa-shopping-cart text-gray-300 text-xl"></i>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Purchase Item 1 -->
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100">
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-green-100 p-2 rounded-full text-green-600">
+                                        <i class="fas fa-plus text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-bold text-gray-800">500 Tk</p>
+                                        <p class="text-xs text-gray-500">bKash Payment</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm font-medium text-gray-900">2000 SMS</p>
+                                    <p class="text-xs text-gray-400">Today</p>
+                                </div>
+                            </div>
+
+                            <!-- Purchase Item 2 -->
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100">
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-green-100 p-2 rounded-full text-green-600">
+                                        <i class="fas fa-plus text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-bold text-gray-800">1000 Tk</p>
+                                        <p class="text-xs text-gray-500">Nagad Payment</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm font-medium text-gray-900">4000 SMS</p>
+                                    <p class="text-xs text-gray-400">Yesterday</p>
+                                </div>
+                            </div>
+
+                            <!-- Purchase Item 3 -->
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100">
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-green-100 p-2 rounded-full text-green-600">
+                                        <i class="fas fa-plus text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-bold text-gray-800">200 Tk</p>
+                                        <p class="text-xs text-gray-500">Bank Transfer</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm font-medium text-gray-900">800 SMS</p>
+                                    <p class="text-xs text-gray-400">Oct 20</p>
+                                </div>
+                            </div>
+
+                            <button class="w-full mt-4 border border-blue-600 text-blue-600 font-medium py-2 rounded-lg hover:bg-blue-50 transition text-sm">
+                                View Transaction History
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Footer -->
+                <footer class="mt-12 text-center text-gray-400 text-sm">
+                    <p>&copy; 2025 SmsBlast Inc. Admin Panel v1.0</p>
+                </footer>
+
+            </main>
+        </div>
     </div>
+
+    <script>
+        // No inline scripts needed for this view
+    </script>
 </body>
 </html>

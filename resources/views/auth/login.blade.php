@@ -66,7 +66,7 @@
                             class="block w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm placeholder-gray-400 transition"
                             placeholder="••••••••" required>
                         <div
-                            class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-gray-400 hover:text-gray-600">
+                            class="showHidePassBtn absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-gray-400 hover:text-gray-600">
                             <i class="far fa-eye"></i>
                         </div>
                         @error('password')
@@ -79,7 +79,7 @@
 
                 <!-- Remember Me -->
                 <div class="flex items-center">
-                    <input id="remember-me" name="remember-me" type="checkbox"
+                    <input id="remember-me" name="remember" type="checkbox"
                         class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                     <label for="remember-me" class="ml-2 block text-sm text-gray-600">Remember me for 30 days</label>
                 </div>
@@ -99,6 +99,18 @@
         </div>
 
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+        $(() => {
+            $(".showHidePassBtn").click(() => {
+                const passwordInput = $("#password");
+                const type = passwordInput.attr("type") === "password" ? "text" : "password";
+                passwordInput.attr("type", type);
+            });
+        });
+    </script>
 
 </body>
 
