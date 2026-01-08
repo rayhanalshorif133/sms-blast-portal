@@ -14,8 +14,8 @@ Auth::routes();
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 
 Route::prefix('send-sms')
+    ->controller(SendSMSController::class)
     ->name('send-sms.')
     ->group(function () {
-        Route::resource('single', SendSMSController::class);
-        Route::resource('bulk', SendSMSController::class);
+        Route::get('/single','singelSms')->name('single');
     });

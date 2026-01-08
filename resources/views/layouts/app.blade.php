@@ -43,7 +43,7 @@
                     </a>
 
                     <p class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Send SMS</p>
-                    <a href="./single_sms_send.html" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
+                    <a href="{{ route('send-sms.single') }}" class="flex items-center px-4 py-2.5 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group">
                         <i class="fas fa-mail-bulk w-6 text-center group-hover:text-blue-400 transition-colors"></i>
                         <span class="ml-3 font-medium">Single SMS Send</span>
                     </a>
